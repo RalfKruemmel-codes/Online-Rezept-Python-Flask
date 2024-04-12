@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezeptübersicht</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Online Rezeptdatenbank</h1>
+        <script src="{{ url_for('static', filename='js/meinSkript.js') }}"></script>
+
+        <!-- Weitere Header-Elemente -->
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('rezept_erfassung') }}">Rezepterfassung</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1>Rezeptübersicht</h1>
+        <ul>
+            {% for rezept in rezepte %}
+            <li><a href="{{ url_for('rezept_detail', rezept_id=rezept.id) }}">{{ rezept.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer>
+        <p>© 2023 Ihr Webanwendungsname</p>
+    </footer>
+</body>
+</html>

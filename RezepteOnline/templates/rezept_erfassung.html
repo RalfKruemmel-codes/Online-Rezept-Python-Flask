@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <script src="{{ url_for('static', filename='js/meinSkript.js') }}"></script>
+    <title>Rezept Erfassung</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Startseite</a></li>
+    </ul>
+    <h1>Rezept Erfassung</h1>
+    <form action="{{ url_for('rezept_erfassung') }}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="beschreibung">Beschreibung:</label>
+        <textarea id="beschreibung" name="beschreibung" required></textarea><br>
+
+        <label for="zubereitungszeit">Zubereitungszeit:</label>
+        <input type="text" id="zubereitungszeit" name="zubereitungszeit" required><br>
+
+        <label for="portionen">Portionen:</label>
+        <input type="number" id="portionen" name="portionen" required><br>
+
+        <label for="zubereitung">Zubereitung:</label>
+        <textarea id="zubereitung" name="zubereitung" required></textarea><br>
+
+        <input type="submit" value="Rezept speichern">
+    </form>
+
+    <!-- Formular zum Hinzufügen einer Zutat zu einem Rezept -->
+    <form action="{{ url_for('zutat_hinzufuegen') }}" method="post">
+        <select name="rezept_id">
+            {% for rezept in rezepte %}
+            <option value="{{ rezept.id }}">{{ rezept.name }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="zutaten_id">
+            {% for zutat in zutaten %}
+            <option value="{{ zutat.id }}">{{ zutat.name }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="text" name="menge" placeholder="Menge">
+        <input type="submit" value="Zutat hinzufügen">
+    </form>
+</body>
+</html>

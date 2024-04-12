@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <script src="{{ url_for('static', filename='js/meinSkript.js') }}"></script>
+    
+    <title>{{ rezept.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>{{ rezept.name }}</h1>
+    </header>
+
+    <div class="content">
+        <p>{{ rezept.beschreibung }}</p>
+        <p>Zubereitungszeit: {{ rezept.zubereitungszeit }}</p>
+        <p>Portionen: {{ rezept.portionen }}</p>
+        <p>Zubereitung: {{ rezept.zubereitung }}</p>
+        <form action="{{ url_for('rezept_anpassen', rezept_id=rezept.id) }}" method="post">
+            <label for="neue_portionen">Neue Portionenanzahl:</label>
+            <input type="number" id="neue_portionen" name="neue_portionen" min="1" required>
+            <input type="submit" value="Mengen anpassen">
+        </form>
+        <h2>Zutaten:</h2>
+        <ul>
+            {% for rz in rezept_zutaten %}
+            <li>{{ rz['zutat'].name }}: {{ rz['menge'] }} {{ rz['einheit'] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer>
+        <p>© 2023 Ralf Krümmel Online Flask WebApp</p>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Startseite</a></li>
+        </ul>
+    </footer>
+</body>
+</html>
